@@ -12,7 +12,26 @@ marks in a:
 * diagonal row
 '''
 
-def print_playing_field():
+
+def tic_tac_toe():    
+    intro()
+    values = clear_playing_field()
+    print_playing_field(values)
+    player = 'X'
+    flag_game_active = True
+    while flag_game_active == True:
+        index = execute_move(player, values)
+        values[index] = player
+        print_playing_field(values)
+        flag_game_active = game_active(player, values)
+        player = select_next_player(player)
+
+def intro():
+    print("Hello, let's play Tic tac toe!")  
+    print(rules)
+    
+
+def print_playing_field(values):
     print('+---+---+---+',
     f'| {values[0]} | {values[1]} | {values[2]} |',
     '+---+---+---+',
@@ -21,7 +40,11 @@ def print_playing_field():
     f'| {values[6]} | {values[7]} | {values[8]} |',
     '+---+---+---+', sep = "\n")
 
-def execute_move(player):
+def clear_playing_field():
+    return [' '] * 9
+
+
+def execute_move(player, values):
     while True:
         move = input(f'Player {player}: Please enter your move number: ')
         if not move.isnumeric():
@@ -39,21 +62,9 @@ def execute_move(player):
             continue
         else:
             break
-    values[x] = str(player)
-    print_playing_field()
+    return x
 
-print("Hello, let's play Tic tac toe!")  
-print(rules)      
-values = list(range(1,10))
-print_playing_field()
-values = [' '] * 9
-player = 'X'
-game_active = True
-
-while game_active == True:
-
-    execute_move(player)
-
+def game_active(player, values):
     row_1 = ''.join([values[0], values[1], values[2]]).count(player)
     row_2 = ''.join([values[3], values[4], values[5]]).count(player)
     row_3 = ''.join([values[6], values[7], values[8]]).count(player)
@@ -74,23 +85,32 @@ while game_active == True:
         if comb == 3:
             print(f'Player {player} won, congratulations!')
             game_active = False
+            return game_active
 
     emty_fields = ''.join(values).count(' ')
 
     if emty_fields == 0:
         print("It's a tie.")
         game_active = False
+        return game_active
+    else:
+        game_active = True
+        return game_active
 
+
+def select_next_player(player):
     if player == 'X':
         player = 'O'
     else:
         player = 'X'
+    return player
+
 print('Game over.')
 
 # upravit zarovnani
 # (counter)
 
-
+tic_tac_toe()
 
 
 
