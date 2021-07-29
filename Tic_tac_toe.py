@@ -18,13 +18,20 @@ def tic_tac_toe():
     values = clear_playing_field()
     print_playing_field(values)
     player = 'X'
-    flag_game_active = True
-    while flag_game_active == True:
-        index = execute_move(player, values)
+    is_filled = False
+    while is_filled == False:
+        index = valid_move(player, values)
         values[index] = player
         print_playing_field(values)
-        flag_game_active = game_active(player, values)
+        is_winner = has_player_won(player, values)
+        if is_winner == True:
+                print(f'Player {player} won, congratulations!')
+                break
+        is_filled = is_field_full(values)
         player = select_next_player(player)
+    else:
+        print("It's a tie.")
+
 
 def intro():
     print("Hello, let's play Tic tac toe!")  
@@ -44,7 +51,7 @@ def clear_playing_field():
     return [' '] * 9
 
 
-def execute_move(player, values):
+def valid_move(player, values):
     while True:
         move = input(f'Player {player}: Please enter your move number: ')
         if not move.isnumeric():
@@ -64,7 +71,8 @@ def execute_move(player, values):
             break
     return x
 
-def game_active(player, values):
+
+def has_player_won(player, values):
     row_1 = ''.join([values[0], values[1], values[2]]).count(player)
     row_2 = ''.join([values[3], values[4], values[5]]).count(player)
     row_3 = ''.join([values[6], values[7], values[8]]).count(player)
@@ -83,19 +91,17 @@ def game_active(player, values):
  
     for comb in winning_combinations:
         if comb == 3:
-            print(f'Player {player} won, congratulations!')
-            game_active = False
-            return game_active
-
-    emty_fields = ''.join(values).count(' ')
-
-    if emty_fields == 0:
-        print("It's a tie.")
-        game_active = False
-        return game_active
+            return True
     else:
-        game_active = True
-        return game_active
+        return False 
+            
+            
+def is_field_full(values):
+    emty_fields = ''.join(values).count(' ')
+    if emty_fields == 0:
+        return True
+    else:
+        return False
 
 
 def select_next_player(player):
@@ -104,8 +110,6 @@ def select_next_player(player):
     else:
         player = 'X'
     return player
-
-print('Game over.')
 
 # upravit zarovnani
 # (counter)
