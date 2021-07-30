@@ -1,16 +1,17 @@
 '''
 author = Štěpán Holub
 '''
+rules_head = 'GAME RULES'
 
-rules = '''
-Each player can place one mark (or stone)
+rules = '''Each player can place one mark (or stone)
 per turn on the 3x3 grid. The WINNER is
 who succeeds in placing three of their
 marks in a:
 * horizontal,
 * vertical or
-* diagonal row
-'''
+* diagonal row'''
+
+separator =  "=" * 42
 
 
 def tic_tac_toe():    
@@ -25,27 +26,36 @@ def tic_tac_toe():
         print_playing_field(values)
         is_winner = has_player_won(player, values)
         if is_winner == True:
-                print(f'Player {player} won, congratulations!')
+                victory(player)
                 break
         is_filled = is_field_full(values)
         player = select_next_player(player)
     else:
-        print("It's a tie.")
+        print(
+            "It's a tie.".center(len(separator)),
+            separator
+            )
 
 
 def intro():
-    print("Hello, let's play Tic tac toe!")  
-    print(rules)
-    
+    print(
+        "\n Hello, let's play Tic tac toe!",
+      rules_head.center(len(separator)),  rules,  sep='\n'+separator+'\n'
+      )  
+
 
 def print_playing_field(values):
-    print('+---+---+---+',
-    f'| {values[0]} | {values[1]} | {values[2]} |',
-    '+---+---+---+',
-    f'| {values[3]} | {values[4]} | {values[5]} |',
-    '+---+---+---+',
-    f'| {values[6]} | {values[7]} | {values[8]} |',
-    '+---+---+---+', sep = "\n")
+
+    line = '+---+---+---+'.center(len(separator))
+
+    print(
+        separator, line,
+        f'| {values[0]} | {values[1]} | {values[2]} |'.center(len(separator)),
+        line,
+        f'| {values[3]} | {values[4]} | {values[5]} |'.center(len(separator)),
+        line,
+        f'| {values[6]} | {values[7]} | {values[8]} |'.center(len(separator)),
+        line, separator, sep = "\n")
 
 def clear_playing_field():
     return [' '] * 9
@@ -111,8 +121,14 @@ def select_next_player(player):
         player = 'X'
     return player
 
-# upravit zarovnani
-# (counter)
+
+def victory(player):
+    print(
+        f'Player {player} won, congratulations!'
+        .center(len(separator)),
+        '\n'+separator
+        )
+
 
 tic_tac_toe()
 
