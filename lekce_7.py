@@ -9,6 +9,8 @@ def obesenec():
     zivoty = 7
     hra_bezi = True
     hra(zivoty, hra_bezi)
+
+
 def hra(zivoty, hra_bezi):
     """
     Popis:
@@ -34,8 +36,12 @@ def hra(zivoty, hra_bezi):
             zivoty -= 1
     else:
         konec_hry(zivoty, slovo)
+
+
 def vytvor_tajenku(slovo, symbol):  # ["_", "_", "_", "_", ...]
     return len(slovo) * [symbol]
+
+
 def zobraz_stav_hry(tajenka, zivoty):
     prepis_vystup()
     print(
@@ -43,21 +49,29 @@ def zobraz_stav_hry(tajenka, zivoty):
         hangman[7 - zivoty],
         sep="\n"
     )
+
+
 def prepis_vystup():
     if platform.system() == "Linux" or platform.system() == "MacOs":
         os.system("clear")
     elif platform.system() == "Windows":
         os.system("cls")
+
+
 def je_pismeno_ve_slove(slovo, hadani):  # "virus", "i"
     indexy = []
     for index, pismeno in enumerate(slovo):  # "virus"
         if hadani == pismeno:
             indexy.append(index)
     return indexy
+
+
 def prepis_pismeno(tajenka, indexy, hadani): # "pollution" -> "l" -> [2, 3]
     for index in indexy: # [2, 3]
         tajenka[index] = hadani  # ["_", "_", "l", "l", ...]
     return tajenka
+
+
 def kompletni_tajenka(tajenka):
     return True if "_" in tajenka else False  # ["_", "_", "l", "l", ...] -> True
 def konec_hry(zivoty, slovo):
@@ -66,3 +80,5 @@ def konec_hry(zivoty, slovo):
     else:
         print(f"Vyhrals, gratulace!", slovo)
 obesenec()
+
+# sdc
