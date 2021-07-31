@@ -32,8 +32,7 @@ def tic_tac_toe():
         player = select_next_player(player)
     else:
         print(
-            "It's a tie.".center(len(separator)),
-            separator
+            "It's a tie.".center(len(separator))
             )
 
 
