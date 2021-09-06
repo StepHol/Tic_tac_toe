@@ -14,9 +14,18 @@ marks in a:
 separator =  "=" * 42
 
 
-def tic_tac_toe() -> None:    
+def tic_tac_toe() -> None:  
+    '''
+    Function takes inputs of moves from players 'X' and 'O' one by one and assign them into 3x3 grid.
+    If there is a row of three same marks, function prints the winning player. If  there is no filed feft,
+    function prints a tie statement.
+    '''
     intro()
     values = clear_playing_field() 
+    '''
+    values: list stores actual distribution of player marks. Contains 9 strings that can take values
+    'X', 'O' or '_' (an empty field).
+    '''
     print_playing_field(values)
     player = 'X'
     while all_fields_full(values) == False:
@@ -63,18 +72,18 @@ def input_valid_move(player: str, values: list) -> int:
             print('Input is not a number.')
             continue
         else:
-            x =int(move)-1
+            move = int(move) - 1
 
-        if x not in list(range(0,9)):
+        if move not in list(range(0,9)):
             print(
                 'The number is out of range. Choose a number between 1 and 9.')
             continue
-        elif 'X' in values[x] or 'O' in values[x]:
+        elif 'X' in values[move] or 'O' in values[move]:
             print('This field is already taken.')
             continue
         else:
             break
-    return x
+    return move
 
 
 def player_is_winner(player: str, values: list) -> bool:
@@ -125,7 +134,8 @@ def victory(player: str) -> None:
         )
 
 
-tic_tac_toe()
+if __name__ == "__main__":
+    tic_tac_toe()
 
 
 
