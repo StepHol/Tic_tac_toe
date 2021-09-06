@@ -14,21 +14,17 @@ marks in a:
 separator =  "=" * 42
 
 
-def tic_tac_toe():    
+def tic_tac_toe() -> None:    
     intro()
-    values = clear_playing_field()
+    values = clear_playing_field() 
     print_playing_field(values)
     player = 'X'
-    is_filled = False
-    while is_filled == False:
-        index = valid_move(player, values)
-        values[index] = player
+    while all_fields_full(values) == False:
+        values[input_valid_move(player, values)] = player
         print_playing_field(values)
-        is_winner = has_player_won(player, values)
-        if is_winner == True:
+        if  player_is_winner(player, values) == True:
                 victory(player)
                 break
-        is_filled = is_field_full(values)
         player = select_next_player(player)
     else:
         print(
@@ -36,14 +32,14 @@ def tic_tac_toe():
             )
 
 
-def intro():
+def intro() -> None:
     print(
         "\n Hello, let's play Tic tac toe!",
       rules_head.center(len(separator)),  rules,  sep='\n'+separator+'\n'
       )  
 
 
-def print_playing_field(values):
+def print_playing_field(values: list) -> None:
 
     line = '+---+---+---+'.center(len(separator))
 
@@ -56,11 +52,11 @@ def print_playing_field(values):
         f'| {values[6]} | {values[7]} | {values[8]} |'.center(len(separator)),
         line, separator, sep = "\n")
 
-def clear_playing_field():
+def clear_playing_field() -> list:
     return [' '] * 9
 
 
-def valid_move(player, values):
+def input_valid_move(player: str, values: list) -> int:
     while True:
         move = input(f'Player {player}: Please enter your move number: ')
         if not move.isnumeric():
@@ -81,7 +77,7 @@ def valid_move(player, values):
     return x
 
 
-def has_player_won(player, values):
+def player_is_winner(player: str, values: list) -> bool:
     row_1 = ''.join([values[0], values[1], values[2]]).count(player)
     row_2 = ''.join([values[3], values[4], values[5]]).count(player)
     row_3 = ''.join([values[6], values[7], values[8]]).count(player)
@@ -105,7 +101,7 @@ def has_player_won(player, values):
         return False 
             
             
-def is_field_full(values):
+def all_fields_full(values: list) -> bool:
     emty_fields = ''.join(values).count(' ')
     if emty_fields == 0:
         return True
@@ -113,7 +109,7 @@ def is_field_full(values):
         return False
 
 
-def select_next_player(player):
+def select_next_player(player: str) -> str:
     if player == 'X':
         player = 'O'
     else:
@@ -121,7 +117,7 @@ def select_next_player(player):
     return player
 
 
-def victory(player):
+def victory(player: str) -> None:
     print(
         f'Player {player} won, congratulations!'
         .center(len(separator)),
