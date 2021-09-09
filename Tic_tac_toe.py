@@ -16,14 +16,16 @@ separator =  "=" * 42
 
 def tic_tac_toe() -> None:  
     '''
-    Function takes inputs of moves from players 'X' and 'O' one by one and assign them into 3x3 grid.
-    If there is a row of three same marks, function prints the winning player. If  there is no filed feft,
-    function prints a tie statement.
+    The function takes inputs of moves from players 'X' and 'O' one by one 
+    and assign them into 3x3 grid. If there is a row of three same marks,
+    the function prints the winning player. If  there is no field feft,
+    the function prints a tie statement.
     '''
     intro()
     values = clear_playing_field() 
     '''
-    values: list stores actual distribution of player marks. Contains 9 strings that can take values
+    values: list stores actual distribution of player marks.
+    Contains 9 strings that can take values
     'X', 'O' or '_' (an empty field).
     '''
     print_playing_field(values)
